@@ -31,12 +31,12 @@ node ('infrastructure') {
         }
 
         doStageIfMergedToMaster('Deploy to Staging') {
-            deployTo(environment: 'staging')
+            deployTo('staging')
             scos.applyAndPushGitHubTag('staging')
         }
 
         doStageIfRelease('Deploy to Production') {
-            deployTo(environment: 'prod')
+            deployTo('prod')
             scos.applyAndPushGitHubTag('prod')
         }
     }
