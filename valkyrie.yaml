@@ -2,7 +2,7 @@ replicaCount: 10
 
 image:
   repository: smartcitiesdata/valkyrie
-  tag: 0.2.2
+  tag: 0.2.3
   pullPolicy: Always
 
 # monitoring:
