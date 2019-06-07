@@ -13,6 +13,7 @@ properties([
     ])
 ])
 
+def applicationName = "valkyrie"
 def doStageIf = scos.&doStageIf
 def doStageIfDeployingToDev = doStageIf.curry(env.DEV_DEPLOYMENT == "true")
 def doStageIfMergedToMaster = doStageIf.curry(scos.changeset.isMaster && env.DEV_DEPLOYMENT == "false")
@@ -27,7 +28,7 @@ node ('infrastructure') {
         }
 
         doStageIfMergedToMaster('Process Dev job') {
-            scos.devDeployTrigger('valkyrie')
+            scos.devDeployTrigger(applicationName)
         }
 
         doStageIfMergedToMaster('Deploy to Staging') {
@@ -43,15 +44,13 @@ node ('infrastructure') {
 }
 
 def deployTo(environment, extraArgs = '') {
-    scos.withEksCredentials(environment) {
-        sh("""#!/bin/bash
-            set -e
-            helm init --client-only
-            helm upgrade --install valkyrie \
-                ./chart \
-                --namespace=streaming-services \
-                --values=valkyrie.yaml \
-                ${extraArgs} \
-        """.trim())
-    }
+    sh("""#!/bin/bash
+        set -e
+        helm init --client-only
+        helm upgrade --install ${applicationName} \
+            ./chart \
+            --namespace=streaming-services \
+            --values=valkyrie.yaml \
+            ${extraArgs}
+    """.trim())
 }
