@@ -44,13 +44,15 @@ node ('infrastructure') {
 }
 
 def deployTo(applicationName, environment, extraArgs = '') {
-    sh("""#!/bin/bash
-        set -e
-        helm init --client-only
-        helm upgrade --install ${applicationName} \
-            ./chart \
-            --namespace=streaming-services \
-            --values=${applicationName}.yaml \
-            ${extraArgs}
-    """.trim())
+    scos.withEksCredentials(environment) {
+        sh("""#!/bin/bash
+            set -e
+            helm init --client-only
+            helm upgrade --install ${applicationName} \
+                ./chart \
+                --namespace=streaming-services \
+                --values=${applicationName}.yaml \
+                ${extraArgs}
+        """.trim())
+    }
 }
