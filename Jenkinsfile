@@ -24,7 +24,7 @@ node ('infrastructure') {
         scos.doCheckoutStage()
 
         doStageIfDeployingToDev('Deploy to Dev') {
-            deployTo('dev', "--set image.tag=${env.DEV_IMAGE_TAG} --recreate-pods")
+            deployTo(applicationName, 'dev', "--set image.tag=${env.DEV_IMAGE_TAG} --recreate-pods")
         }
 
         doStageIfMergedToMaster('Process Dev job') {
@@ -32,25 +32,25 @@ node ('infrastructure') {
         }
 
         doStageIfMergedToMaster('Deploy to Staging') {
-            deployTo('staging')
+            deployTo(applicationName, 'staging')
             scos.applyAndPushGitHubTag('staging')
         }
 
         doStageIfRelease('Deploy to Production') {
-            deployTo('prod')
+            deployTo(applicationName, 'prod')
             scos.applyAndPushGitHubTag('prod')
         }
     }
 }
 
-def deployTo(environment, extraArgs = '') {
+def deployTo(applicationName, environment, extraArgs = '') {
     sh("""#!/bin/bash
         set -e
         helm init --client-only
         helm upgrade --install ${applicationName} \
             ./chart \
             --namespace=streaming-services \
-            --values=valkyrie.yaml \
+            --values=${applicationName}.yaml \
             ${extraArgs}
     """.trim())
 }
