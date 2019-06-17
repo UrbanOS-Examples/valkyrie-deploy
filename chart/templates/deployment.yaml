@@ -26,10 +26,10 @@ spec:
           env:
           - name: KAFKA_BROKERS
             value: {{ .Values.kafka.brokers }}
-          - name: RAW_TOPIC
-            value: {{.Values.kafka.rawTopic}}
-          - name: VALIDATED_TOPIC
-            value: {{.Values.kafka.validatedTopic}}
+          - name: INPUT_TOPIC_PREFIX
+            value: {{.Values.kafka.inputTopicPrefix}}
+          - name: OUTPUT_TOPIC_PREFIX
+            value: {{.Values.kafka.outputTopicPrefix}}
           - name: DLQ_TOPIC
             value: {{.Values.kafka.dlqTopic}}
           - name: REDIS_HOST
