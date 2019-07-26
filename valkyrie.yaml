@@ -1,11 +1,11 @@
-replicaCount: 10
+replicaCount: 2
 image:
   tag: 0.4.0
 
 resources:
   limits:
-    cpu: 600m
-    memory: 1Gi
+    cpu: 3000m
+    memory: 5Gi
   requests:
-    cpu: 300m
-    memory: 1Gi
+    cpu: 1500m
+    memory: 5Gi
