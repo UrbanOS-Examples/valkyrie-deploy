@@ -2,6 +2,8 @@ replicaCount: 10
 image:
   tag: 0.4.0
 
+processor_stages: 6
+
 resources:
   limits:
     cpu: 600m
