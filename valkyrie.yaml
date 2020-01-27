@@ -9,5 +9,5 @@ resources:
     cpu: 3000m
     memory: 5Gi
   requests:
-    cpu: 1500m
+    cpu: 3000m
     memory: 5Gi
