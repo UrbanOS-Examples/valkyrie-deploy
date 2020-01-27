@@ -52,7 +52,7 @@ def deployTo(applicationName, environment, extraArgs = '') {
             helm repo update
             helm upgrade --install ${applicationName} \
                 scdp/${applicationName} \
-                --version 2.4.0 \
+                --version 2.4.1 \
                 --namespace=streaming-services \
                 --values=${applicationName}.yaml \
                 ${extraArgs}
