@@ -1,6 +1,6 @@
 replicaCount: 2
 image:
-  tag: 1.2.0
+  tag: 1.2.1
 
 processor_stages: 6
 
