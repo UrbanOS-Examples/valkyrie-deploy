@@ -47,7 +47,7 @@ def deployTo(applicationName, environment, extraArgs = '') {
     scos.withEksCredentials(environment) {
         sh("""#!/bin/bash
             set -e
-            helm repo add scdp https://datastillery.github.io/charts
+            helm repo add scdp https://urbanos-public.github.io/charts/
             helm repo update
             helm upgrade --install ${applicationName} \
                 scdp/${applicationName} \
